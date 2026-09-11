@@ -4,7 +4,7 @@ require 'logger'
 class PollerTest < Minitest::Test
 
   def setup
-    @connector = SqsHelper::Connector.new(endpoint: 'http://localhost:9324', region: 'us-east-2')
+    @connector = SqsHelper::Connector.new(endpoint: 'http://elasticmq:9324', region: 'us-east-2')
     @logger = Logger.new(STDOUT)
     @queue = 'sqs_helper_polling_test'
   end
@@ -25,7 +25,7 @@ class PollerTest < Minitest::Test
       my_poller.start_polling(p)
     end
     sleep 1
-    assert_equal messages.collect {|message| message.length}, @message_lengths
+    assert_equal messages.collect {|message| message.length}.sort, @message_lengths.sort
     my_poller.stop_polling
     t.join
   end

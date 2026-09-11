@@ -3,7 +3,7 @@ require_relative 'test_helper'
 class ConnectorTest < Minitest::Test
 
   def setup
-    @connection_args = {endpoint: 'http://localhost:9324', region: 'us-east-2'}
+    @connection_args = {endpoint: 'http://elasticmq:9324', region: 'us-east-2'}
     @connector = SqsHelper::Connector.new(@connection_args)
     @queue = 'sqs_helper_test'
   end
@@ -49,7 +49,7 @@ class ConnectorTest < Minitest::Test
     connector_set.add_connector(:existing, @connector)
     assert_equal @connector, connector_set.at(:existing)
     connector_set.delete_connector(:key)
-    assert_equal nil, connector_set.at(:key)
+    assert_nil connector_set.at(:key)
   end
 
 end

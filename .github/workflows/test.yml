@@ -1,0 +1,11 @@
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+      - name: Run the tests
+        run: |
+          docker compose -f docker-compose-test.yml up --build --exit-code-from sqs_helper

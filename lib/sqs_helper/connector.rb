@@ -15,7 +15,11 @@ module SqsHelper
     end
 
     def initialize_client
-      self.client = Aws::SQS::Client.new(endpoint: endpoint, region: region)
+      if endpoint && region
+        self.client = Aws::SQS::Client.new(endpoint: endpoint, region: region)
+      else
+        self.client = Aws::SQS::Client.new(region: region)
+      end
     end
 
     def clear_all_queues
